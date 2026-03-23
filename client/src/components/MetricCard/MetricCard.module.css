@@ -1,0 +1,29 @@
+.card {
+  transition: box-shadow var(--transition);
+}
+
+.card:hover {
+  box-shadow: var(--mantine-shadow-sm);
+}
+
+.value {
+  line-height: 1.2;
+  word-break: break-all;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--mantine-radius-md);
+  background: var(--mantine-color-default-hover);
+  flex-shrink: 0;
+}

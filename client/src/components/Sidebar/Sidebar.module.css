@@ -1,0 +1,21 @@
+.sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--mantine-color-default-border);
+  background: var(--mantine-color-body);
+  flex-shrink: 0;
+}
+
+.logo {
+  padding: 0 var(--mantine-spacing-sm);
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+}
+
+.navItem {
+  border-radius: var(--mantine-radius-md);
+}

@@ -1,0 +1,8 @@
+.chartCard {
+  overflow: hidden;
+}
+
+.chartCard svg {
+  width: 100%;
+  height: auto;
+}

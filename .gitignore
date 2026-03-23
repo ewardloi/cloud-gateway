@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env
+ssl/
+*.pem
+*.key
+*.crt
+.DS_Store
+*.log

@@ -1,0 +1,47 @@
+import type { PortForwardingRule } from "../types/portForwarding.js";
+
+export const portForwardingRules: PortForwardingRule[] = [
+  {
+    id: "1",
+    name: "HTTP Server",
+    enabled: true,
+    protocol: "tcp",
+    sourceInterface: "eth1",
+    sourcePort: 80,
+    destinationIp: "192.168.1.50",
+    destinationPort: 80,
+    comment: "Main web server",
+  },
+  {
+    id: "2",
+    name: "HTTPS Server",
+    enabled: true,
+    protocol: "tcp",
+    sourceInterface: "eth1",
+    sourcePort: 443,
+    destinationIp: "192.168.1.50",
+    destinationPort: 443,
+    comment: "Main web server TLS",
+  },
+  {
+    id: "3",
+    name: "SSH Access",
+    enabled: false,
+    protocol: "tcp",
+    sourceInterface: "eth1",
+    sourcePort: 2222,
+    destinationIp: "192.168.1.1",
+    destinationPort: 22,
+    comment: "Remote SSH",
+  },
+  {
+    id: "4",
+    name: "Game Server",
+    enabled: true,
+    protocol: "udp",
+    sourceInterface: "eth1",
+    sourcePort: "27015-27020",
+    destinationIp: "192.168.1.60",
+    destinationPort: 27015,
+  },
+];

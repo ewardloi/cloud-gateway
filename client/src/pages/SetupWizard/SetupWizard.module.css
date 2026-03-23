@@ -1,0 +1,12 @@
+.root {
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: var(--mantine-spacing-md);
+  align-items: flex-start;
+  padding-top: 5dvh;
+}
+
+.card {
+  width: 100%;
+  max-width: 680px;
+}
