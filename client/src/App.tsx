@@ -35,16 +35,11 @@ function RequireAuth({ children }: { children: React.ReactNode }) {
 }
 
 function RequireSetup({ children }: { children: React.ReactNode }) {
-  const location = useLocation();
-
   const { data, isLoading } = useAsync(() => systemApi.getSetupStatus());
 
   if (isLoading) return <PageLoader />;
 
   if (!data?.isSetupDone) return <Navigate to="/setup" replace />;
-
-  if (data?.isSetupDone && location.pathname.startsWith("/setup"))
-    return <Navigate to="/dashboard" replace />;
 
   return <>{children}</>;
 }
@@ -57,7 +52,6 @@ type AppRoutesProps = {
 function AppRoutes({ themeMode, onThemeChange }: AppRoutesProps) {
   return (
     <Routes>
-      {/* Public */}
       <Route
         path="/login"
         element={
@@ -66,20 +60,16 @@ function AppRoutes({ themeMode, onThemeChange }: AppRoutesProps) {
           </Suspense>
         }
       />
-
       <Route
         path="/setup"
         element={
           <RequireAuth>
-            <RequireSetup>
-              <Suspense fallback={<PageLoader />}>
-                <SetupWizard />
-              </Suspense>
-            </RequireSetup>
+            <Suspense fallback={<PageLoader />}>
+              <SetupWizard />
+            </Suspense>
           </RequireAuth>
         }
       />
-
       <Route
         element={
           <RequireAuth>

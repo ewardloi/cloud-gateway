@@ -45,7 +45,7 @@ app.get("/api/health", (_req, res) => res.json({ ok: true }));
 const staticPath = path.resolve(__dirname, "..", STATIC_PATH);
 if (fs.existsSync(staticPath)) {
   app.use(express.static(staticPath));
-  app.get("*", (_req, res) =>
+  app.get("/*path", (_req, res) =>
     res.sendFile(path.join(staticPath, "index.html")),
   );
 }

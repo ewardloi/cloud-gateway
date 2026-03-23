@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import selfsigned from "selfsigned";
 
 export type SslCredentials = {
   key: Buffer;
@@ -21,18 +22,18 @@ export async function ensureSslCerts(
     };
   }
 
-  const selfsigned = await import("selfsigned");
-  const generate = selfsigned.default?.generate ?? (selfsigned as any).generate;
-
   const attrs = [
-    { name: "commonName", value: hostname },
-    { name: "organizationName", value: "Cloud Gateway" },
-    { name: "organizationalUnitName", value: "Auto-generated" },
+    { name: "CN", value: hostname },
+    { name: "O", value: "Cloud Gateway" },
+    { name: "OU", value: "Auto-generated" },
   ];
 
-  const opts = {
+  const notAfterDate = new Date();
+  notAfterDate.setFullYear(notAfterDate.getFullYear() + 10);
+
+  const pems = await selfsigned.generate(attrs, {
     keySize: 2048,
-    days: 3650,
+    notAfterDate,    
     algorithm: "sha256",
     extensions: [
       {
@@ -44,9 +45,7 @@ export async function ensureSslCerts(
         ],
       },
     ],
-  };
-
-  const pems = generate(attrs, opts);
+  });
 
   const dir = path.dirname(keyPath);
   fs.mkdirSync(dir, { recursive: true });

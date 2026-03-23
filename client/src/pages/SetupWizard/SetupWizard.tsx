@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Stack, Title, Text, Paper, Stepper, Center } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { IconCheck } from "@tabler/icons-react";
 import { setupApi, systemApi } from "../../api/index.ts";
 import { EthernetStep } from "./steps/EthernetStep.tsx";
@@ -9,6 +9,8 @@ import { Ipv4Step } from "./steps/Ipv4Step.tsx";
 import { Ipv6Step } from "./steps/Ipv6Step.tsx";
 import { WireguardStep } from "./steps/WireguardStep.tsx";
 import classes from "./SetupWizard.module.css";
+import { useAsync } from "../../hooks/useAsync.ts";
+import { PageLoader } from "../../components/Layout/PageLoader.tsx";
 
 type SetupWizardProps = {};
 
@@ -37,6 +39,12 @@ const steps = [
 
 export default function SetupWizard({}: SetupWizardProps) {
   const navigate = useNavigate();
+
+  const { data: setupData, isLoading: isSetupDataLoading } = useAsync(() => systemApi.getSetupStatus());
+
+  if (setupData?.isSetupDone) return <Navigate to="/dashboard" replace />;
+
+  if (isSetupDataLoading) return <PageLoader />;
 
   const [active, setActive] = useState(0);
   const [completing, setCompleting] = useState(false);
